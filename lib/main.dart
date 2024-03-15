@@ -1,7 +1,6 @@
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/cubits/login_cubit/login_cubit.dart';
-import 'package:chat_app/pages/cubits/login_cubit/login_states.dart';
 import 'package:chat_app/pages/log_in_page.dart';
 import 'package:chat_app/pages/registor_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +26,7 @@ class ChatApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           LoginPage.id: (context) => LoginPage(),
-          RegistorPage.id: (context) => const RegistorPage(),
+          RegistorPage.id: (context) => RegistorPage(),
           ChatPage.id: (context) => ChatPage(),
         },
         initialRoute: LoginPage.id,

@@ -9,20 +9,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class RegistorPage extends StatefulWidget {
-  const RegistorPage({super.key});
-  static String id = 'registorPage';
-
-  @override
-  State<RegistorPage> createState() => _RegistorPageState();
-}
-
-class _RegistorPageState extends State<RegistorPage> {
+class RegistorPage extends StatelessWidget {
   String? email, password;
+  static String id = 'registorPage';
 
   bool isLoading = false;
 
   GlobalKey<FormState> formKey = GlobalKey();
+
+  RegistorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +85,6 @@ class _RegistorPageState extends State<RegistorPage> {
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       isLoading = true;
-                      setState(() {});
                       try {
                         await userRegistration();
                         Navigator.pushNamed(context, ChatPage.id,
@@ -107,7 +101,6 @@ class _RegistorPageState extends State<RegistorPage> {
                         showSnackBar(context, 'there was an error ');
                       }
                       isLoading = false;
-                      setState(() {});
                     } else {}
                   },
                   text: 'Registor',
