@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/pages/cubits/register_cubit/register_cubit.dart';
-import 'package:chat_app/pages/log_in_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
