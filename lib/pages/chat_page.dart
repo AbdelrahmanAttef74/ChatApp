@@ -3,21 +3,19 @@ import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/pages/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/widgets/chat_buble.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class ChatPage extends StatelessWidget {
   ChatPage({super.key});
   static String id = 'chat page';
-  List<MessageModel> messageList = [];
+  List<MessageModel> messagesList = [];
   final _controller = ScrollController();
-  CollectionReference messages =
-      FirebaseFirestore.instance.collection(kMessagesCollection);
+
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var email = ModalRoute.of(context)!.settings.arguments;
+    var email = ModalRoute.of(context)!.settings.arguments.toString();
 
     return Scaffold(
       appBar: AppBar(
@@ -45,20 +43,20 @@ class ChatPage extends StatelessWidget {
             child: BlocConsumer<ChatCubit, ChatState>(
               listener: (context, state) {
                 if (state is ChatSuccess) {
-                  messageList = state.messages;
+                  messagesList = state.messages;
                 }
               },
               builder: (context, state) {
                 return ListView.builder(
                   reverse: true,
                   controller: _controller,
-                  itemCount: messageList.length,
+                  itemCount: messagesList.length,
                   itemBuilder: (context, index) {
-                    return messageList[index].id == email
+                    return messagesList[index].id == email
                         ? ChatBuble(
-                            messageModel: messageList[index],
+                            messageModel: messagesList[index],
                           )
-                        : ChatBubleForFriend(messageModel: messageList[index]);
+                        : ChatBubleForFriend(messageModel: messagesList[index]);
                   },
                 );
               },
@@ -69,11 +67,8 @@ class ChatPage extends StatelessWidget {
             child: TextField(
               controller: controller,
               onSubmitted: (data) {
-                messages.add({
-                  kMessage: data,
-                  kCreatedAt: DateTime.now(),
-                  kId: email,
-                });
+                BlocProvider.of<ChatCubit>(context)
+                    .sendMessage(message: data, email: email);
                 controller.clear();
                 //here we make animated controller to animate to the end of listView.Builder;
                 _controller.animateTo(0,
