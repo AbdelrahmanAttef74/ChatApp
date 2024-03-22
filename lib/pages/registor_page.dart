@@ -2,7 +2,7 @@
 
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
-import 'package:chat_app/pages/cubits/register_cubit/register_cubit.dart';
+import 'package:chat_app/pages/cubits/auth_cubit/auth_cubit.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class RegistorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegistLoading) {
           isLoading = true;
@@ -96,9 +96,8 @@ class RegistorPage extends StatelessWidget {
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         isLoading = true;
-                        BlocProvider.of<RegisterCubit>(context)
-                            .userRegistration(
-                                email: email!, password: password!);
+                        BlocProvider.of<AuthCubit>(context).userRegistration(
+                            email: email!, password: password!);
                         isLoading = false;
                       } else {}
                     },

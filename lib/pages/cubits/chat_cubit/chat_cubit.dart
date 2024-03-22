@@ -23,6 +23,7 @@ class ChatCubit extends Cubit<ChatState> {
       (event) {
         List<MessageModel> messagesList = [];
         for (var doc in event.docs) {
+          messagesList.clear();
           messagesList.add(MessageModel.fromJson(doc));
         }
         emit(ChatSuccess(messages: messagesList));
