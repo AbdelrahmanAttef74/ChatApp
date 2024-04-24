@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         try {
           UserCredential user = await FirebaseAuth.instance
               .signInWithEmailAndPassword(
-                  email: event.email, password: event.passward);
+                  email: event.email, password: event.password);
           emit(LoginSuccess());
         } on FirebaseAuthException catch (e) {
           if (e.code == 'user-not-found') {
